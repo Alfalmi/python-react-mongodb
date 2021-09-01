@@ -1,37 +1,93 @@
 import React, { useState, useEffect } from "react";
 
-const baseURL = process.env.REACT_APP_API_URL
+const baseURL = process.env.REACT_APP_API_URL;
 
 export const Users = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [editing, setEditing] = useState(false);
+  const [id, setId] = useState("");
+
+  const [users, setUsers] = useState([]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${baseURL}/users`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      })
-    })
-    const data = await res.json();
-    console.log(data)
+
+    if (!editing) {
+      const res = await fetch(`${baseURL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+    } else {
+      const res = await fetch(`${baseURL}/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      setEditing(false);
+      setId("");
+    }
+
+    await getUsers();
+
+    setName("");
+    setEmail("");
+    setPassword("");
   };
   const getUsers = async () => {
-      const res = await fetch(`${baseURL}/users`)
-      const data = await res.json();
-      console.log(data)
-
-  }
+    const res = await fetch(`${baseURL}/users`);
+    const data = await res.json();
+    setUsers(data);
+  };
   useEffect(() => {
-      getUsers();
-  }, [])
+    getUsers();
+  }, []);
+
+  // edit
+  const editUser = async (id) => {
+    const res = await fetch(`${baseURL}/user/${id}`);
+    const data = await res.json();
+
+    setEditing(true);
+    setId(data._id);
+
+    // Reset
+    setName(data.name);
+    setEmail(data.email);
+    setPassword(data.password);
+  };
+
+  // delete
+  const deleteUser = async (id) => {
+    const userResponse = window.confirm("Are you sure you want to delete it?");
+    if (userResponse) {
+      const res = await fetch(`${baseURL}/users/${id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      await getUsers();
+    } else {
+    }
+  };
   return (
     <div className="row">
       <div className="col-md-4">
@@ -64,10 +120,47 @@ export const Users = () => {
               placeholder="Password"
             />
           </div>
-          <button className="btn btn-primary btn-block">CREATE</button>
+          <button className="btn btn-primary btn-block">
+            {editing ? 'Update' : 'Create'}
+          </button>
         </form>
       </div>
-      <div className="col-md-8"></div>
+      <div className="col-md-6">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Operations</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user._id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.password}</td>
+
+                <td>
+                  <button
+                    className="btn btn-secondary btn-sm btn-block"
+                    onClick={(e) => editUser(user._id)}
+                  >
+                    --Edit--
+                  </button>
+                  <button
+                    className="btn btn-danger btn-sm btn-block"
+                    onClick={(e) => deleteUser(user._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
