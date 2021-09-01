@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/python-react-mongodb/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/python-react-mongodb/static/js/main.92ecf2e1.chunk.js",
+    "main.js.map": "/python-react-mongodb/static/js/main.92ecf2e1.chunk.js.map",
+    "runtime-main.js": "/python-react-mongodb/static/js/runtime-main.06ed543a.js",
+    "runtime-main.js.map": "/python-react-mongodb/static/js/runtime-main.06ed543a.js.map",
+    "static/css/2.7bd15df5.chunk.css": "/python-react-mongodb/static/css/2.7bd15df5.chunk.css",
+    "static/js/2.840d0394.chunk.js": "/python-react-mongodb/static/js/2.840d0394.chunk.js",
+    "static/js/2.840d0394.chunk.js.map": "/python-react-mongodb/static/js/2.840d0394.chunk.js.map",
+    "static/js/3.446b51c8.chunk.js": "/python-react-mongodb/static/js/3.446b51c8.chunk.js",
+    "static/js/3.446b51c8.chunk.js.map": "/python-react-mongodb/static/js/3.446b51c8.chunk.js.map",
+    "index.html": "/python-react-mongodb/index.html",
+    "static/css/2.7bd15df5.chunk.css.map": "/python-react-mongodb/static/css/2.7bd15df5.chunk.css.map",
+    "static/css/main.6dea0f05.chunk.css.map": "/python-react-mongodb/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.840d0394.chunk.js.LICENSE.txt": "/python-react-mongodb/static/js/2.840d0394.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.06ed543a.js",
+    "static/css/2.7bd15df5.chunk.css",
+    "static/js/2.840d0394.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.92ecf2e1.chunk.js"
+  ]
+}
